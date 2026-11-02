@@ -20,12 +20,12 @@
 <main>
 <header><div class="brand"><div class="mark" aria-hidden="true">☾</div><div><h1>睡眠节奏</h1><div class="head-sub">SleepShift · 早骑睡前计划</div></div></div><span class="pill">北京时间 · 离线可用</span></header>
 <section id="page-today" class="page active">
-<div class="hero"><div class="eyebrow">TONIGHT'S PLAN</div><h2 id="hero-title">今晚，好好准备入睡</h2><p id="hero-sub">计划只是参考，不是必须准时睡着的任务。</p><div class="hero-line"><span class="huge" id="hero-target">--:--</span><span class="small">目标实际入睡</span></div></div>
+<div class="hero"><div class="eyebrow">TONIGHT'S PLAN</div><h2 id="hero-title">今晚，好好准备入睡</h2><p id="hero-sub">计划只是参考，不是必须准时睡着的任务。</p><div class="hero-line"><span class="huge" id="hero-target">--:--</span><span class="small">参考上床时间（有睡意时）</span></div></div>
 <div class="section-head"><h2>四周渐进计划</h2><button class="ghost" id="today-btn">回到今天 ↗</button></div>
 <div class="card"><div class="row" style="margin-bottom:11px"><span class="lead" id="week-label">第 1 周 · 建立规律</span><span class="small" id="date-label">2026/11/02</span></div><div class="week-row" id="week-row"></div><div class="days" id="day-row"></div><div class="info" id="plan-hint">有睡意时再上床，避免把床变成努力入睡的地方。</div></div>
 <div class="section-head"><h2>今晚睡眠预算</h2><span class="small">按次日起床倒推</span></div>
-<div class="card"><div class="plan-quad"><div class="stat accent"><div class="small">本周目标入睡</div><div class="val" id="p-sleep">--:--</div><div class="desc">节奏调整目标</div></div><div class="stat"><div class="small">次日预计起床</div><div class="val" id="p-wake">--:--</div><div class="desc" id="wake-desc">工作日</div></div><div class="stat"><div class="small">按目标推算实际睡眠</div><div class="val" id="p-duration">--</div><div class="desc">估算，不是实际监测结果</div></div><div class="stat"><div class="small">睡足 7.5h 理想入睡</div><div class="val" id="p-ideal">--:--</div><div class="desc">已考虑预计夜醒</div></div></div><div class="info" id="sleep-alert"></div><div class="buttons" style="margin-top:12px"><button id="open-calculator" class="button secondary">调整睡眠预算 →</button></div></div>
-<div class="section-head"><h2>睡前流程</h2><span class="small">随入睡目标自动变化</span></div>
+<div class="card"><div class="plan-quad"><div class="stat accent"><div class="small">本周参考上床</div><div class="val" id="p-sleep">--:--</div><div class="desc" id="p-latency">预计入睡等待 20 分钟</div></div><div class="stat"><div class="small">次日预计起床</div><div class="val" id="p-wake">--:--</div><div class="desc" id="wake-desc">工作日</div></div><div class="stat"><div class="small">按假设推算实际睡眠</div><div class="val" id="p-duration">--</div><div class="desc">估算，不是实际监测结果</div></div><div class="stat"><div class="small">睡足 7.5h 理想入睡</div><div class="val" id="p-ideal">--:--</div><div class="desc">已考虑预计夜醒</div></div></div><div class="info" id="sleep-alert"></div><div class="buttons" style="margin-top:12px"><button id="open-calculator" class="button secondary">调整睡眠预算 →</button></div></div>
+<div class="section-head"><h2>睡前流程</h2><span class="small">随参考上床时间调整</span></div>
 <div class="card" id="routine"></div>
 <div class="section-head"><h2>今晚的行为清单</h2><span class="small" id="check-count"></span></div>
 <div class="card" id="checklist"></div>
@@ -39,7 +39,7 @@
 <section id="page-track" class="page">
 <div class="hero"><div class="eyebrow">SLEEP JOURNAL</div><h2>用记录验证改变</h2><p>记录真正有用的指标：上床到睡着花了多久、实际睡了多久、早晨精神如何。仅保存在当前设备。</p></div>
 <div class="section-head"><h2>新增一晚记录</h2><span class="small">全部时间均为北京时间</span></div>
-<div class="card"><div class="field"><label for="log-date">哪天晚上上床？</label><input type="date" id="log-date" value="2026-11-02"></div><div class="grid2" style="margin-top:12px"><div class="field"><label for="log-bed">实际上床时间</label><input type="time" id="log-bed"></div><div class="field"><label for="log-asleep">估计真正睡着</label><input type="time" id="log-asleep"></div><div class="field"><label for="log-wake">第二天起床</label><input type="time" id="log-wake"></div><div class="field"><label for="log-awake">夜间清醒（分钟）</label><input type="number" id="log-awake" min="0" max="480" value="0" inputmode="numeric"></div><div class="field"><label for="log-mood">早晨精神（1–5）</label><select id="log-mood"><option value="5">5 · 很好</option><option value="4" selected>4 · 不错</option><option value="3">3 · 一般</option><option value="2">2 · 较差</option><option value="1">1 · 很困</option></select></div><div class="field"><label for="log-ride">次日是否骑行？</label><select id="log-ride"><option value="0">否</option><option value="1">是</option></select></div></div><div class="info">Apple Watch 不一定能准确判断你什么时候真正入睡。这份日志以你的主观估计为准，避免误把安静躺卧当作睡着。</div><div class="buttons" style="margin-top:13px"><button class="button" id="save-log">保存当晚记录</button></div></div>
+<div class="card"><div class="field"><label for="log-date">哪天晚上上床？</label><input type="date" id="log-date" value="2026-11-02"></div><div class="grid2" style="margin-top:12px"><div class="field"><label for="log-bed">实际上床时间</label><input type="time" id="log-bed"></div><div class="field"><label for="log-asleep">估计真正睡着</label><input type="time" id="log-asleep"></div><div class="field"><label for="log-wake">第二天起床</label><input type="time" id="log-wake"></div><div class="field"><label for="log-awake">夜间清醒（分钟）</label><input type="number" id="log-awake" min="0" max="480" value="0" inputmode="numeric"></div><div class="field"><label for="log-mood">早晨精神（1–5）</label><select id="log-mood"><option value="5">5 · 很好</option><option value="4" selected>4 · 不错</option><option value="3">3 · 一般</option><option value="2">2 · 较差</option><option value="1">1 · 很困</option></select></div><div class="field"><label for="log-ride">次日是否骑行？</label><select id="log-ride"><option value="0">否</option><option value="1">是</option></select></div></div><div class="info">建议先连续记录 7–14 晚的上床和估计入睡时间，再复盘典型入睡等待。Apple Watch 不一定能准确识别安静躺卧，这份日志以主观估计为准。记录只保存在本机。</div><div class="buttons" style="margin-top:13px"><button class="button" id="save-log">保存当晚记录</button></div></div>
 <div class="section-head"><h2>你的记录与复盘</h2><span class="small" id="log-count">0 晚</span></div><div class="card"><div id="summary"></div><div id="logs"></div><div class="buttons" style="margin-top:12px"><button class="button secondary" id="export-data">导出备份 JSON</button><label class="button outline" for="import-data" style="cursor:pointer">导入备份</label><input id="import-data" type="file" accept="application/json,.json" class="hidden"></div></div>
 </section>
 <section id="page-settings" class="page">
@@ -56,13 +56,13 @@
 <script>
 'use strict';
 const PLAN_START='2026-11-02';
-// 2026-11-02复盘：近14晚入睡中位数约01:24、工作日睡眠基本足够。
-// 周一周二守住现有节奏；逐步尝试提前周三至周五，切忌把入睡目标当成强制上床时间。
+// 2026-11-02复盘：工作日实际睡眠大多达标；入睡时间不等于上床时间。
+// PLAN.goals 是“参考上床时间”（00:00 起的有符号分钟）。仅在困倦时上床，周五早骑前夜逐周尝试提前。
 const PLAN=[
- {label:'第 1 周 · 保持基线',goals:[75,75,70,65,45,75,75]},
- {label:'第 2 周 · 逐步提前',goals:[70,70,60,55,25,70,70]},
- {label:'第 3 周 · 适应早骑',goals:[65,65,50,45,5,65,65]},
- {label:'第 4 周 · 评估目标',goals:[60,60,40,30,-20,60,60]}
+ {label:'第 1 周 · 00:30 上床观察',goals:[30,30,30,30,15,30,30]},
+ {label:'第 2 周 · 维持平日节奏',goals:[30,30,30,30,0,30,30]},
+ {label:'第 3 周 · 提前早骑前夜',goals:[30,30,30,30,-20,30,30]},
+ {label:'第 4 周 · 验证早骑预算',goals:[30,30,30,30,-40,30,30]}
 ];
 const DAYS=['周一','周二','周三','周四','周五','周六','周日'];
 const KEYS={settings:'sleepshift.settings.v1',logs:'sleepshift.logs.v1',checks:'sleepshift.checks.v1'};
@@ -92,12 +92,13 @@ function renderToday(){const w=getWeek(selectedDate),day=wd(selectedDate),target
  $('hero-title').textContent=day===4&&settings.rideSat?'为明早骑行，今晚提前放松':getWakeLabel(selectedDate).includes('早骑')?'今晚为早骑做好准备':'让睡意自然到来';
  $('hero-sub').textContent=`${selectedDate.replaceAll('-','/')} · ${DAYS[day]}晚 · ${PLAN[w].label}${dayNum(selectedDate)>27?' · 待复盘':''}`;
  $('hero-target').textContent=ftime(target);$('p-sleep').textContent=ftime(target);$('p-wake').textContent=getWake(selectedDate);$('wake-desc').textContent=getWakeLabel(selectedDate);
- const actual= wake-target-settings.awake;$('p-duration').textContent=fDur(actual);
+ const estimatedAsleep=target+settings.latency;$('p-latency').textContent=`按等待 ${settings.latency} 分钟，预计 ${ftime(estimatedAsleep)} 入睡`;
+ const actual=wake-estimatedAsleep-settings.awake;$('p-duration').textContent=fDur(actual);
  const ideal=wake-settings.need-settings.awake;$('p-ideal').textContent=ftime(ideal);
  const short=Math.round(settings.need-actual),isEarly=getWakeLabel(selectedDate).includes('早骑');
- const alert=$('sleep-alert'); alert.className='info '+(short>0?'warn':'success');alert.textContent=short>0?`若按参考时间自然入睡、夜醒 ${settings.awake} 分钟，预计比 ${(settings.need/60).toFixed(1)} 小时目标少 ${short} 分钟。${isEarly?'早骑前夜优先保障休息；实际睡眠少于 7 小时须谨慎安排骑行，明显困倦不要上路。':'观察白天精神状态，别为了追时间提前躺床硬等。'}`:`按当前假设，睡眠预算能够覆盖 ${(settings.need/60).toFixed(1)} 小时目标；仍应以实际睡眠及精神状态决定次日安排。`;
- $('plan-hint').textContent=dayNum(selectedDate)>27?'四周计划已结束：第 4 周时间仅供参考，并非验证成功的长期处方；下次复盘再决定是否沿用。':w===0?'基于近两周睡眠，工作日已基本足够。先稳定起床、早晨接触自然光；周五早骑前夜不要为追时间硬躺。':w===3?'重点验证周五能否自然产生早睡意；如果没有，请保持上周节奏，必要时调整周六骑行。':'若连续两晚主观入睡等待超过 30 分钟，下一周先不提前；优先保障睡眠时长和骑行安全。';
- const events=[{time:target-90,icon:'🎮',title:'结束游戏和高刺激内容',desc:'不再开新一局，减少短视频与工作消息'},{time:target-60,icon:'◑',title:'洗漱、调暗灯光',desc:'拉窗帘，卧室舒适偏凉；按需用眼罩/耳塞'},{time:target-20,icon:'☾',title:'有睡意时上床',desc:'没困就继续做安静的事情，不必硬躺'},{time:target,icon:'✦',title:'自然入睡参考时间',desc:'不是必须达标的倒计时；睡不着就暂时起床'}];
+ const alert=$('sleep-alert'); alert.className='info '+(short>0?'warn':'success');alert.textContent=short>0?`若 ${ftime(target)} 上床、${settings.latency} 分钟后睡着、夜醒 ${settings.awake} 分钟，预计比 ${(settings.need/60).toFixed(1)} 小时目标少 ${short} 分钟。${isEarly?'过渡周不应为追求早骑强迫自己提前上床；实际睡眠不足时降低强度，明显困倦不要上路。':'以睡意和白天精神为准，不为追求时刻硬躺。'}`:`假设 ${settings.latency} 分钟入睡等待、夜醒 ${settings.awake} 分钟，预算约 ${fDur(actual)}；实际情况以主观记录与手表趋势为准。`;
+ $('plan-hint').textContent=dayNum(selectedDate)>27?'四周计划结束后先复盘上床到入睡的主观等待时间，再决定是否维持；不要把第 4 周当成固定处方。':w===0?'先尝试 00:30 左右上床（仅限有睡意时），记录 7 晚实际入睡等待；周五骑行前夜单独观察。':w===3?'工作日维持 00:30 参考上床，早骑前夜尝试提前；没有睡意就不要硬躺，必要时缩短或取消骑行。':'平日保持 00:30 参考上床；若连续两晚等待超过 30 分钟，不再提前周五上床时间，先分析睡意及睡前活动。';
+ const events=[{time:target-90,icon:'🎮',title:'结束游戏和高刺激内容',desc:'不再开新一局，减少短视频与工作消息'},{time:target-60,icon:'◑',title:'洗漱、调暗灯光',desc:'拉窗帘，卧室舒适偏凉；按需用眼罩/耳塞'},{time:target,icon:'☾',title:'参考上床（仅在有睡意时）',desc:'若完全不困，就晚些再上床，不在床上强行等待'},{time:estimatedAsleep,icon:'✦',title:'预计入睡（按等待 '+settings.latency+' 分钟）',desc:'这是规划假设，不是手表实测；清醒烦躁时起床放松，困了再回床'}];
  $('routine').innerHTML=events.map(e=>`<div class="flowline"><div class="flowtime">${ftime(e.time)}</div><div class="flowtxt"><b>${e.title}</b><small>${e.desc}</small></div><span class="circle">${e.icon}</span></div>`).join('');renderChecks()}
 const checklistItems=[['light','睡前一小时降低灯光和刺激'],['screen','不把手机和游戏带到床上'],['room','卧室遮光、安静、舒适偏凉'],['mind','只有困倦时才上床'],['ride','睡眠不足时调整次日骑行计划']];
 function renderChecks(){const vals=checks[selectedDate]||{};$('checklist').innerHTML=checklistItems.map(([id,label])=>`<label class="check"><input type="checkbox" data-check="${id}" ${vals[id]?'checked':''}><span><b>${label}</b><small>${id==='ride'?'睡得少也不必勉强出门；安全优先':id==='mind'?'如果明显清醒，起床做安静的事，等困再回床':''}</small></span></label>`).join('');document.querySelectorAll('[data-check]').forEach(el=>el.addEventListener('change',()=>{if(!checks[selectedDate])checks[selectedDate]={};checks[selectedDate][el.dataset.check]=el.checked;localStorage.setItem(KEYS.checks,JSON.stringify(checks));renderCheckCount()}));renderCheckCount()}
