@@ -56,16 +56,18 @@
 <script>
 'use strict';
 const PLAN_START='2026-11-02';
+// 2026-11-02复盘：近14晚入睡中位数约01:24、工作日睡眠基本足够。
+// 周一周二守住现有节奏；逐步尝试提前周三至周五，切忌把入睡目标当成强制上床时间。
 const PLAN=[
- {label:'第 1 周 · 建立规律',goals:[60,60,50,50,30,50,50]},
- {label:'第 2 周 · 小幅提前',goals:[50,50,40,40,10,40,40]},
- {label:'第 3 周 · 适应早骑',goals:[40,40,30,30,-10,30,30]},
- {label:'第 4 周 · 验证目标',goals:[30,30,20,20,-25,20,20]}
+ {label:'第 1 周 · 保持基线',goals:[75,75,70,65,45,75,75]},
+ {label:'第 2 周 · 逐步提前',goals:[70,70,60,55,25,70,70]},
+ {label:'第 3 周 · 适应早骑',goals:[65,65,50,45,5,65,65]},
+ {label:'第 4 周 · 评估目标',goals:[60,60,40,30,-20,60,60]}
 ];
 const DAYS=['周一','周二','周三','周四','周五','周六','周日'];
 const KEYS={settings:'sleepshift.settings.v1',logs:'sleepshift.logs.v1',checks:'sleepshift.checks.v1'};
 const $=id=>document.getElementById(id);
-const DEFAULT={weekdayWake:'08:40',fridayWake:'08:50',rideWake:'07:30',restWake:'09:15',rideSat:true,rideSun:false,need:450,latency:20,awake:20};
+const DEFAULT={weekdayWake:'08:40',fridayWake:'08:40',rideWake:'07:30',restWake:'09:15',rideSat:true,rideSun:false,need:450,latency:20,awake:20};
 const safeJson=(str,fallback)=>{try{const v=JSON.parse(str);return v&&typeof v==='object'?v:fallback}catch{return fallback}};
 let settings={...DEFAULT,...safeJson(localStorage.getItem(KEYS.settings),{})};
 let logs=safeJson(localStorage.getItem(KEYS.logs),{});
@@ -86,15 +88,15 @@ const toast=(msg)=>{const e=$('toast');e.textContent=msg;e.classList.remove('hid
 function switchTab(t){document.querySelectorAll('.page').forEach(e=>e.classList.toggle('active',e.id==='page-'+t));document.querySelectorAll('.nav button').forEach(e=>e.classList.toggle('active',e.dataset.tab===t));window.scrollTo({top:0,behavior:'smooth'});if(t==='calc')setCalcInputs();if(t==='track')renderLogs()}
 document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
 function selectDate(date){selectedDate=date;renderToday()}
-function renderToday(){const w=getWeek(selectedDate),day=wd(selectedDate),target=getTarget(selectedDate),wake=parseTime(getWake(selectedDate)),maintenance=dayNum(selectedDate)>27,weekStart=maintenance?isoPlus(selectedDate,-day):isoPlus(PLAN_START,w*7);$('week-label').textContent=maintenance?'第 4 周目标 · 长期维持':PLAN[w].label;$('date-label').textContent=selectedDate.replaceAll('-','/');$('week-row').innerHTML=PLAN.map((x,i)=>`<button class="week-btn ${w===i?'active':''}" data-week="${i}" aria-pressed="${w===i}">第 ${i+1} 周</button>`).join('');document.querySelectorAll('[data-week]').forEach(el=>el.addEventListener('click',()=>selectDate(isoPlus(PLAN_START,Number(el.dataset.week)*7+day))));$('day-row').innerHTML=DAYS.map((d,i)=>{const dt=isoPlus(weekStart,i);return `<button class="day ${day===i?'active':''}" data-day="${i}" aria-pressed="${day===i}">${d.replace('周','')}<span>${dt.slice(8)}</span></button>`}).join('');document.querySelectorAll('[data-day]').forEach(el=>el.addEventListener('click',()=>selectDate(isoPlus(weekStart,Number(el.dataset.day)))));
+function renderToday(){const w=getWeek(selectedDate),day=wd(selectedDate),target=getTarget(selectedDate),wake=parseTime(getWake(selectedDate)),maintenance=dayNum(selectedDate)>27,weekStart=maintenance?isoPlus(selectedDate,-day):isoPlus(PLAN_START,w*7);$('week-label').textContent=maintenance?'第 4 周参考 · 等待复盘':PLAN[w].label;$('date-label').textContent=selectedDate.replaceAll('-','/');$('week-row').innerHTML=PLAN.map((x,i)=>`<button class="week-btn ${w===i?'active':''}" data-week="${i}" aria-pressed="${w===i}">第 ${i+1} 周</button>`).join('');document.querySelectorAll('[data-week]').forEach(el=>el.addEventListener('click',()=>selectDate(isoPlus(PLAN_START,Number(el.dataset.week)*7+day))));$('day-row').innerHTML=DAYS.map((d,i)=>{const dt=isoPlus(weekStart,i);return `<button class="day ${day===i?'active':''}" data-day="${i}" aria-pressed="${day===i}">${d.replace('周','')}<span>${dt.slice(8)}</span></button>`}).join('');document.querySelectorAll('[data-day]').forEach(el=>el.addEventListener('click',()=>selectDate(isoPlus(weekStart,Number(el.dataset.day)))));
  $('hero-title').textContent=day===4&&settings.rideSat?'为明早骑行，今晚提前放松':getWakeLabel(selectedDate).includes('早骑')?'今晚为早骑做好准备':'让睡意自然到来';
- $('hero-sub').textContent=`${selectedDate.replaceAll('-','/')} · ${DAYS[day]}晚 · ${PLAN[w].label}${dayNum(selectedDate)>27?' · 维持阶段':''}`;
+ $('hero-sub').textContent=`${selectedDate.replaceAll('-','/')} · ${DAYS[day]}晚 · ${PLAN[w].label}${dayNum(selectedDate)>27?' · 待复盘':''}`;
  $('hero-target').textContent=ftime(target);$('p-sleep').textContent=ftime(target);$('p-wake').textContent=getWake(selectedDate);$('wake-desc').textContent=getWakeLabel(selectedDate);
  const actual= wake-target-settings.awake;$('p-duration').textContent=fDur(actual);
  const ideal=wake-settings.need-settings.awake;$('p-ideal').textContent=ftime(ideal);
  const short=Math.round(settings.need-actual),isEarly=getWakeLabel(selectedDate).includes('早骑');
- const alert=$('sleep-alert'); alert.className='info '+(short>0?'warn':'success');alert.textContent=short>0?`如果按本周计划入睡、夜醒 ${settings.awake} 分钟，预计比 ${(settings.need/60).toFixed(1)} 小时目标少 ${short} 分钟。${isEarly?'过渡期需评估次日是否适合骑行。':'可以观察白天是否仍然精神良好。'}`:`按当前假设，睡眠预算能够覆盖 ${(settings.need/60).toFixed(1)} 小时目标；实际情况以你的睡眠记录为准。`;
- $('plan-hint').textContent=dayNum(selectedDate)>27?'四周计划已经结束，当前沿用第 4 周的目标作为维持参考。不要强行卡点睡着。':w===0?'第一周重在建立节奏；目标时间是参考，不要躺在床上硬等睡意。':w===3?'本周验证能否自然提前；如果睡意没跟上，可以回到上一周节奏。':'若连续两晚入睡等待超过 30 分钟，暂停推进，维持上一周节奏。';
+ const alert=$('sleep-alert'); alert.className='info '+(short>0?'warn':'success');alert.textContent=short>0?`若按参考时间自然入睡、夜醒 ${settings.awake} 分钟，预计比 ${(settings.need/60).toFixed(1)} 小时目标少 ${short} 分钟。${isEarly?'早骑前夜优先保障休息；实际睡眠少于 7 小时须谨慎安排骑行，明显困倦不要上路。':'观察白天精神状态，别为了追时间提前躺床硬等。'}`:`按当前假设，睡眠预算能够覆盖 ${(settings.need/60).toFixed(1)} 小时目标；仍应以实际睡眠及精神状态决定次日安排。`;
+ $('plan-hint').textContent=dayNum(selectedDate)>27?'四周计划已结束：第 4 周时间仅供参考，并非验证成功的长期处方；下次复盘再决定是否沿用。':w===0?'基于近两周睡眠，工作日已基本足够。先稳定起床、早晨接触自然光；周五早骑前夜不要为追时间硬躺。':w===3?'重点验证周五能否自然产生早睡意；如果没有，请保持上周节奏，必要时调整周六骑行。':'若连续两晚主观入睡等待超过 30 分钟，下一周先不提前；优先保障睡眠时长和骑行安全。';
  const events=[{time:target-90,icon:'🎮',title:'结束游戏和高刺激内容',desc:'不再开新一局，减少短视频与工作消息'},{time:target-60,icon:'◑',title:'洗漱、调暗灯光',desc:'拉窗帘，卧室舒适偏凉；按需用眼罩/耳塞'},{time:target-20,icon:'☾',title:'有睡意时上床',desc:'没困就继续做安静的事情，不必硬躺'},{time:target,icon:'✦',title:'自然入睡参考时间',desc:'不是必须达标的倒计时；睡不着就暂时起床'}];
  $('routine').innerHTML=events.map(e=>`<div class="flowline"><div class="flowtime">${ftime(e.time)}</div><div class="flowtxt"><b>${e.title}</b><small>${e.desc}</small></div><span class="circle">${e.icon}</span></div>`).join('');renderChecks()}
 const checklistItems=[['light','睡前一小时降低灯光和刺激'],['screen','不把手机和游戏带到床上'],['room','卧室遮光、安静、舒适偏凉'],['mind','只有困倦时才上床'],['ride','睡眠不足时调整次日骑行计划']];
